@@ -17,16 +17,13 @@ jobs:
   docker:
     name: Build and publish Docker image
     steps:
-      - uses: actions/docker/login@master
       - name: Login to registry
+        run: echo "$DOCKER_PASSWORD" | docker login "$DOCKER_REGISTRY_URL" -u "$DOCKER_USERNAME" --password-stdin
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_REGISTRY_URL: docker.pkg.github.com
-      - uses: actions/docker/cli@master
       - name: Build Docker image
-        with:
-          args: build -t docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest .
+        run: docker build -t docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest .
       - name: Publish image to GitHub registry
-        with:
-          args: push docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest
+        run: docker push docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest
