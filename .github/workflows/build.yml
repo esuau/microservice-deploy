@@ -20,9 +20,10 @@ jobs:
     steps:
       - uses: actions/docker/login@master
       - name: Login to registry
-        env:
+        with:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        env:
           DOCKER_REGISTRY_URL: docker.pkg.github.com
       - uses: actions/docker/cli@master
       - name: Build Docker image
