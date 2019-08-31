@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run tests
+      run: ./gradlew :cleanTest :test
+    - name: Build fat JAR
+      run: ./gradlew build
