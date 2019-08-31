@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: io.esuau
+---
+testFramework: spock
+sourceLanguage: groovy
