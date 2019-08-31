@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on: [push]
 
@@ -10,6 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run tests
-      run: ./gradlew :cleanTest :test
+      run: |
+        chmod +x gradlew
+        ./gradlew :cleanTest :test
     - name: Build fat JAR
       run: ./gradlew build
