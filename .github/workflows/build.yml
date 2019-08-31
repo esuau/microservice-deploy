@@ -18,17 +18,18 @@ jobs:
     name: Build and publish Docker image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/docker/login@master
       - name: Login to registry
+      - uses: actions/docker/login@master
         with:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         env:
           DOCKER_REGISTRY_URL: docker.pkg.github.com
-      - uses: actions/docker/cli@master
       - name: Build Docker image
+      - uses: actions/docker/cli@master
         with:
           args: build -t docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest .
       - name: Publish image to GitHub registry
+      - uses: actions/docker/cli@master
         with:
           args: push docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest
