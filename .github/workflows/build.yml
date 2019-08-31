@@ -14,6 +14,7 @@ jobs:
           ./gradlew cleanTest test
   publish:
     name: Build and publish Docker image
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
