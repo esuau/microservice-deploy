@@ -3,8 +3,8 @@ name: Build and publish
 on: [push]
 
 jobs:
-  groovy:
-    name: Build Groov app
+  test:
+    name: Run app tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -12,24 +12,21 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew cleanTest test
-      - name: Build fat JAR
-        run: ./gradlew build
-  docker:
+  publish:
     name: Build and publish Docker image
     runs-on: ubuntu-latest
     steps:
-      - name: Login to registry
-      - uses: actions/docker/login@master
-        with:
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        env:
-          DOCKER_REGISTRY_URL: docker.pkg.github.com
+      - uses: actions/checkout@v1
+      - name: Build fat JAR
+        run: ./gradlew build
+      - name: Setup dockerize
+        uses: zcong1993/setup-dockerize@v1.1.0
       - name: Build Docker image
-      - uses: actions/docker/cli@master
-        with:
-          args: build -t docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest .
+        run: docker build -t docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest .
       - name: Publish image to GitHub registry
-      - uses: actions/docker/cli@master
+        uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          args: push docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest
+          name: docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
