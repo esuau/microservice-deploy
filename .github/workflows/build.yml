@@ -1,17 +1,32 @@
-name: Build
+name: Build and publish
 
 on: [push]
 
 jobs:
-  build:
-
+  groovy:
+    name: Build Groov app
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v1
-    - name: Run tests
-      run: |
-        chmod +x gradlew
-        ./gradlew :cleanTest :test
-    - name: Build fat JAR
-      run: ./gradlew build
+      - uses: actions/checkout@v1
+      - name: Run tests
+        run: |
+          chmod +x gradlew
+          ./gradlew cleanTest test
+      - name: Build fat JAR
+        run: ./gradlew build
+  docker:
+    name: Build and publish Docker image
+    steps:
+      - uses: actions/docker/login@master
+      - name: Login to registry
+        env:
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_REGISTRY_URL: docker.pkg.github.com
+      - uses: actions/docker/cli@master
+      - name: Build Docker image
+        with:
+          args: build -t docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest .
+      - name: Publish image to GitHub registry
+        with:
+          args: push docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest
