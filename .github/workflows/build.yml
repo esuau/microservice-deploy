@@ -16,6 +16,7 @@ jobs:
         run: ./gradlew build
   docker:
     name: Build and publish Docker image
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/docker/login@master
       - name: Login to registry
