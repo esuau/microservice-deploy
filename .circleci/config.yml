@@ -1,9 +1,27 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/openjdk:11.0.4-stretch
     steps:
       - checkout
       - run: chmod +x gradlew
       - run: ./gradlew cleanTest test
+  build:
+    docker:
+      - image: circleci/openjdk:11.0.4-stretch
+    steps:
+      - checkout
+      - run: chmod +x gradlew
+      - run: ./gradlew build
+      - store_artifacts:
+          path: build/libs
+      - store_artifacts:
+          path: build/distributions
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+      - build
