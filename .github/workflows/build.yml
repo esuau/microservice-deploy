@@ -18,12 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build fat JAR
-        run: ./gradlew build
-      - name: Setup dockerize
-        uses: zcong1993/setup-dockerize@v1.1.0
-      - name: Build Docker image
-        run: docker build -t docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy:latest .
-      - name: Publish image to GitHub registry
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+      - name: Build and publish image to GitHub registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: docker.pkg.github.com/esuau/microservice-deploy/microservice-deploy
