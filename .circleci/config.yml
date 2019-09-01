@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: chmod +x gradlew
       - run: ./gradlew cleanTest test
-  build:
+  publish:
     docker:
       - image: circleci/openjdk:11.0.4-stretch
     steps:
@@ -18,10 +18,16 @@ jobs:
           path: build/libs
       - store_artifacts:
           path: build/distributions
+      - run: docker build -t esuau/microservice-deploy .
+      - run: |
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker push esuau/microservice-deploy
 
 workflows:
   version: 2
   test:
     jobs:
       - test
-      - build
+      - publish:
+          requires:
+            - test
