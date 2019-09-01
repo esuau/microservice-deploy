@@ -21,7 +21,7 @@ jobs:
       - setup_remote_docker
       - run: docker build -t esuau/microservice-deploy:latest .
       - run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          echo $DOCKER_PASSWORD | base64 --decode | docker login -u $DOCKER_USERNAME --password-stdin
           docker push esuau/microservice-deploy:latest
 
 workflows:
