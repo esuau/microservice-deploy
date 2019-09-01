@@ -10,6 +10,7 @@ jobs:
   publish:
     docker:
       - image: circleci/openjdk:11.0.4-stretch
+    working_directory: /src
     steps:
       - checkout
       - run: chmod +x gradlew
@@ -27,10 +28,10 @@ jobs:
             curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
-      - run: docker build -t esuau/microservice-deploy .
+      - run: docker build -t esuau/microservice-deploy:latest .
       - run: |
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker push esuau/microservice-deploy
+          docker push esuau/microservice-deploy:latest
 
 workflows:
   version: 2
