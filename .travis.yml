@@ -3,6 +3,8 @@ language: groovy
 services:
   - docker
 
+install: true
+
 before_script:
   - chmod +x gradlew
   - ./gradlew cleanTest test
