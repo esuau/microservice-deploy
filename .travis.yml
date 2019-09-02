@@ -20,5 +20,9 @@ deploy:
   provider: heroku
   api_key: $HEROKU_API_KEY
   skip_cleanup: true
+  app: microservice-deploy
+  run:
+    - container:push web
+    - container:release web
   on:
     branch: master
