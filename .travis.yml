@@ -15,3 +15,10 @@ after_success:
   - docker build -t esuau/microservice-deploy:latest .
   - echo $DOCKER_PASSWORD | base64 --decode | docker login -u $DOCKER_USERNAME --password-stdin
   - docker push esuau/microservice-deploy:latest
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  skip_cleanup: true
+  on:
+    branch: master
