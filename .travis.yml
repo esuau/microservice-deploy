@@ -20,9 +20,9 @@ before_deploy:
   - curl https://cli-assets.heroku.com/install.sh | sh
 
 deploy:
-  - provider: script
-    script:
-      /usr/local/bin/heroku container:push web
-      /usr/local/bin/heroku container:release web
+  provider: script
+  script:
+    /usr/local/bin/heroku container:push web
+    /usr/local/bin/heroku container:release web
   on:
     branch: master
