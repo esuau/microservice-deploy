@@ -21,7 +21,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: |
+    script:
       /usr/local/bin/heroku container:push web
       /usr/local/bin/heroku container:release web
   on:
