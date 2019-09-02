@@ -16,13 +16,11 @@ after_success:
   - echo $DOCKER_PASSWORD | base64 --decode | docker login -u $DOCKER_USERNAME --password-stdin
   - docker push esuau/microservice-deploy:latest
 
+before_deploy:
+  - curl https://cli-assets.heroku.com/install.sh | sh
+
 deploy:
-  provider: heroku
-  api_key: $HEROKU_API_KEY
-  skip_cleanup: true
-  app: microservice-deploy
-  run:
-    - container:push web
-    - container:release web
+  - /usr/local/bin/heroku container:push web
+  - /usr/local/bin/heroku container:release web
   on:
     branch: master
