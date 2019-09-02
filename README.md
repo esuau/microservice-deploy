@@ -13,3 +13,8 @@ The workflow file is located at [`.github/workflows/build.yml`](https://github.c
 [![CircleCI](https://circleci.com/gh/esuau/microservice-deploy.svg?style=svg)](https://circleci.com/gh/esuau/microservice-deploy)
 
 The build configuration is located at [`.circleci/config.yml`](https://github.com/esuau/microservice-deploy/blob/master/.circleci/config.yml).
+
+## Travis CI
+[![Build Status](https://travis-ci.org/esuau/microservice-deploy.svg?branch=master)](https://travis-ci.org/esuau/microservice-deploy)
+
+The build configuration file is located at [`.travis.yml`](https://github.com/esuau/microservice-deploy/blob/master/.travis.yml).
