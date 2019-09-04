@@ -6,12 +6,12 @@ class Status implements Serializable {
 
     private String version
 
-    private String message
+    private String state
 
-    Status(String name, String version, String message) {
+    Status(String name, String version, String state) {
         this.name = name
         this.version = version
-        this.message = message
+        this.state = state
     }
 
     String getName() {
@@ -30,12 +30,12 @@ class Status implements Serializable {
         this.version = version
     }
 
-    String getMessage() {
-        return message
+    String getState() {
+        return state
     }
 
-    void setMessage(String message) {
-        this.message = message
+    void setState(String state) {
+        this.state = state
     }
 
 }

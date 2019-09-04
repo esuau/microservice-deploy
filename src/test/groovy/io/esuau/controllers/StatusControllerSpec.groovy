@@ -21,7 +21,7 @@ class StatusControllerSpec extends Specification {
         String rsp = client.toBlocking().retrieve(request)
 
         then:
-        rsp == """{"name":"microservicedeploy","version":"0.1","message":"UP AND RUNNING"}"""
+        rsp == """{"name":"microservicedeploy","version":"0.1","state":"UP AND RUNNING"}"""
     }
 
 }
