@@ -27,4 +27,6 @@ The build configuration file is located at [`.travis.yml`](https://github.com/es
 
 The deployed service is available at [`https://microservice-deploy.herokuapp.com/status`](https://microservice-deploy.herokuapp.com/status).
 
+### Azure
 
+The deployed Azure Web App is available at [`https://microservice-deploy.azurewebsites.net/status`](https://microservice-deploy.azurewebsites.net/status).
